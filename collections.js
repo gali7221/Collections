@@ -10,7 +10,9 @@ var inventory;
     },
     cacheTemplate: function() {
       var $i_tmpl = $("#inventory_item").remove();
-      this.template = $i_tmpl.html();
+      
+      // Use handlebars to cache template
+      this.template = Handlebars.compile($i_tmpl.html());
     },
     add: function() {
       this.last_id++;
@@ -52,7 +54,7 @@ var inventory;
     newItem: function(e) {
       e.preventDefault();
       var item = this.add(),
-          $item = $(this.template.replace(/ID/g, item.id));
+          $item = $(this.template({ id: item.id }));
 
       $("#inventory").append($item);
     },
